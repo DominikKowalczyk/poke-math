@@ -1,0 +1,169 @@
+/* Modern Dark Theme Variables */
+:root {
+    /* Core Colors */
+    --color-bg: hsl(220, 25%, 10%);
+    --color-surface: hsl(220, 25%, 16%);
+    --color-text: hsl(210, 25%, 88%);
+
+    /* Interactive Elements */
+    --color-input-bg: hsl(220, 20%, 24%);
+    --color-input-border: hsl(220, 15%, 50%);
+    --color-input-focus: hsl(210, 90%, 60%);
+
+    --color-button-bg: hsl(210, 90%, 60%);
+    --color-button-hover: hsl(210, 85%, 50%);
+    --color-button-focus-shadow: hsla(210, 90%, 60%, 0.4);
+
+    /* Status Colors */
+    --color-success: hsl(120, 50%, 50%);
+    --color-error: hsl(0, 70%, 60%);
+
+    /* Border Radius & Shadows */
+    --border-radius: 8px;
+    --shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Auto-Apply Dark Mode if System Prefers */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: hsl(220, 25%, 10%);
+        --color-surface: hsl(220, 25%, 16%);
+        --color-text: hsl(210, 25%, 88%);
+    }
+}
+
+/* Font Setup */
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/Poppins-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('fonts/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+}
+
+/* Base Styles */
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container */
+.container {
+    text-align: center;
+    background: var(--color-surface);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    width: 350px;
+}
+
+/* Typography */
+h1 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+#math-question {
+    font-size: 1.3rem;
+    padding: 12px;
+    margin-bottom: 1rem;
+}
+
+/* Inputs */
+input {
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    padding: 12px;
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    width: calc(100% - 24px);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--color-input-focus);
+    box-shadow: 0 0 6px var(--color-input-focus);
+}
+
+/* Buttons */
+button {
+    background: var(--color-button-bg);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background: var(--color-button-hover);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-button-focus-shadow);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Borders for Correct/Incorrect Answers */
+.correct-border {
+    border: 2px solid var(--color-success);
+    transition: border-color 0.3s ease;
+}
+
+.incorrect-border {
+    border: 2px solid var(--color-error);
+    transition: border-color 0.3s ease;
+}
+
+/* Floating Feedback */
+#floating-result {
+    position: fixed;
+    bottom: 25%;
+    left: calc(50%-width);
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.correct-flyer {
+    background: rgba(50, 205, 50, 0.9);
+}
+
+.incorrect-flyer {
+    background: rgba(255, 69, 58, 0.9);
+}
+
