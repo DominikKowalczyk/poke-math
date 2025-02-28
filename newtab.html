@@ -12,6 +12,38 @@
 </head>
 
 <body>
+    <nav class="tab">
+        <div class="icons">
+            <div data-index="1" class="icon fad fa-home"></div>
+            <div data-index="2" class="icon fal fa-plus"></div>
+            <div data-index="3" class="icon fad fa-user fa-swap-opacity"></div>
+            <button id="settings-btn" class="icon fal fa-cog">⚙️ Settings</button>
+        </div>
+        <div class="bar">
+            <div class="cap"></div>
+            <div class="middle">
+                <div class="side"></div>
+                <div class="circle"></div>
+                <div class="side"></div>
+            </div>
+            <div class="cap"></div>
+        </div>
+        <div id="settings-menu" class="settings-menu">
+            <h3>Settings</h3>
+            <label><input type="checkbox" name="operator" value="+"> Addition</label>
+            <label><input type="checkbox" name="operator" value="-"> Subtraction</label>
+            <label><input type="checkbox" name="operator" value="×"> Multiplication</label>
+            <label><input type="checkbox" name="operator" value="÷"> Division</label>
+            <label>Difficulty:
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </label>
+        </div>
+    </nav>
+    
     <div class="container">
         <h1>Math Challenge</h1>
         <div id="math-question"></div>

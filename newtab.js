@@ -3,15 +3,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const answerInput = document.getElementById("answer");
     const submitBtn = document.getElementById("submit");
     const resultEl = document.createElement("div");
+    const settingsBtn = document.getElementById("settings-btn");
+    const settingsMenu = document.getElementById("settings-menu");
+    const operatorCheckboxes = document.querySelectorAll("input[name='operator']");
+    const difficultySelect = document.getElementById("difficulty");
+    const nav = document.querySelector("nav");
 
     resultEl.id = "floating-result";
     document.body.appendChild(resultEl);
 
+    let selectedOperators = ["+", "-", "×", "÷"];
+    let difficulty = "easy";
+
     function generateQuestion() {
-        const num1 = Math.floor(Math.random() * 10) + 1;
-        const num2 = Math.floor(Math.random() * 10) + 1;
-        const operators = ["+", "-", "×", "÷"];
-        const operator = operators[Math.floor(Math.random() * operators.length)];
+        const numRange = difficulty === "easy" ? 10 : difficulty === "medium" ? 20 : 50;
+        const num1 = Math.floor(Math.random() * numRange) + 1;
+        const num2 = Math.floor(Math.random() * numRange) + 1;
+        const operator = selectedOperators[Math.floor(Math.random() * selectedOperators.length)];
 
         let correctAnswer;
         let latexExpression = `${num1} ${operator} ${num2}`;
@@ -34,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
         questionEl.dataset.answer = correctAnswer;
         katex.render(latexExpression, questionEl, { throwOnError: false });
         answerInput.value = "";
-        answerInput.classList.remove("correct-border", "incorrect-border"); // Reset borders
+        answerInput.classList.remove("correct-border", "incorrect-border");
     }
 
     function showFloatingResult(text, isCorrect) {
@@ -63,19 +71,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (parseFloat(userAnswer) === correctAnswer) {
             showFloatingResult("✅ Correct! 🎉", true);
             answerInput.blur();
-            answerInput.classList.add("correct-border"); // Add correct border
+            answerInput.classList.add("correct-border");
             setTimeout(() => {
-                answerInput.classList.remove("correct-border"); // Remove correct border
+                answerInput.classList.remove("correct-border");
                 answerInput.focus();
                 generateQuestion();
             }, 1000);
         } else {
             showFloatingResult(`❌ Incorrect! The answer was ${correctAnswer}`, false);
             answerInput.blur();
-            answerInput.classList.add("incorrect-border"); // Add incorrect border
-            answerInput.value = ""; // Clear input
+            answerInput.classList.add("incorrect-border");
+            answerInput.value = "";
             setTimeout(() => {
-                answerInput.classList.remove("incorrect-border"); // Remove incorrect border
+                answerInput.classList.remove("incorrect-border");
                 answerInput.focus();
             }, 1500);
         }
@@ -85,6 +93,33 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.key === "Enter") {
             submitBtn.click();
         }
+    });
+
+    settingsBtn.addEventListener("click", () => {
+        settingsMenu.classList.toggle("visible");
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!settingsMenu.contains(event.target) && event.target !== settingsBtn) {
+            settingsMenu.classList.remove("visible");
+        }
+    });
+
+    operatorCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", () => {
+            selectedOperators = Array.from(operatorCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            if (selectedOperators.length === 0) {
+                selectedOperators = ["+", "-", "×", "÷"];
+            }
+            generateQuestion();
+        });
+    });
+
+    difficultySelect.addEventListener("change", (event) => {
+        difficulty = event.target.value;
+        generateQuestion();
     });
 
     generateQuestion();

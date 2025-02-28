@@ -65,6 +65,7 @@ body {
 
 /* Container */
 .container {
+    position: relative;
     text-align: center;
     background: var(--color-surface);
     padding: 2rem;
@@ -173,4 +174,54 @@ button:active {
 
 .incorrect-flyer {
     background: var(--color-error);
+}
+
+/* Style the settings menu */
+.settings-menu {
+    position: absolute;
+    top: 5rem;
+    right: 0;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    width: 12rem;
+    display: none;
+    z-index: 10;
+}
+
+/* Show the menu when active */
+.settings-menu.visible {
+    display: block;
+}
+
+/* Adjust the settings button */
+#settings-btn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    color: #333;
+}
+
+/* Style checkboxes and dropdown */
+.settings-menu label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.settings-menu select {
+    width: 100%;
+    padding: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    background: white;
+}
+
+/* Improve menu positioning within nav */
+nav {
+    position: relative;
 }
