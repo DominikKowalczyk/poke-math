@@ -55,23 +55,28 @@ document.addEventListener("DOMContentLoaded", () => {
         let userAnswer = answerInput.value.trim().replace(",", ".");
         if (userAnswer === "") {
             showFloatingResult("⚠️ Please enter an answer!", false);
+            answerInput.focus();
             return;
         }
 
         const correctAnswer = parseFloat(questionEl.dataset.answer);
         if (parseFloat(userAnswer) === correctAnswer) {
             showFloatingResult("✅ Correct! 🎉", true);
+            answerInput.blur();
             answerInput.classList.add("correct-border"); // Add correct border
             setTimeout(() => {
                 answerInput.classList.remove("correct-border"); // Remove correct border
+                answerInput.focus();
                 generateQuestion();
             }, 1000);
         } else {
             showFloatingResult(`❌ Incorrect! The answer was ${correctAnswer}`, false);
+            answerInput.blur();
             answerInput.classList.add("incorrect-border"); // Add incorrect border
             answerInput.value = ""; // Clear input
             setTimeout(() => {
                 answerInput.classList.remove("incorrect-border"); // Remove incorrect border
+                answerInput.focus();
             }, 1500);
         }
     });
@@ -83,7 +88,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     generateQuestion();
-    setTimeout(() => {
-        answerInput.focus();
-    }, 500);
 });

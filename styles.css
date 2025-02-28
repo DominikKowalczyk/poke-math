@@ -15,8 +15,8 @@
     --color-button-focus-shadow: hsla(210, 90%, 60%, 0.4);
 
     /* Status Colors */
-    --color-success: hsl(120, 50%, 50%);
-    --color-error: hsl(0, 70%, 60%);
+    --color-success: hsla(117, 100%, 61%, 0.9);
+    --color-error: hsla(3, 100%, 61%, 0.9);
 
     /* Border Radius & Shadows */
     --border-radius: 8px;
@@ -88,6 +88,8 @@ h1 {
 
 /* Inputs */
 input {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-shadow: var(--shadow-lg);
     background: var(--color-input-bg);
     border: 1px solid var(--color-input-border);
     padding: 12px;
@@ -95,9 +97,14 @@ input {
     color: var(--color-text);
     width: calc(100% - 24px);
     margin-bottom: 1rem;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     text-align: center;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
 }
 
 input:focus {
@@ -108,6 +115,7 @@ input:focus {
 
 /* Buttons */
 button {
+    font-family: 'Poppins', sans-serif;
     background: var(--color-button-bg);
     color: white;
     border: none;
@@ -133,12 +141,12 @@ button:active {
 
 /* Borders for Correct/Incorrect Answers */
 .correct-border {
-    border: 2px solid var(--color-success);
+    border: 1px solid var(--color-success);
     transition: border-color 0.3s ease;
 }
 
 .incorrect-border {
-    border: 2px solid var(--color-error);
+    border: 1px solid var(--color-error);
     transition: border-color 0.3s ease;
 }
 
@@ -160,10 +168,9 @@ button:active {
 }
 
 .correct-flyer {
-    background: rgba(50, 205, 50, 0.9);
+    background: var(--color-success);
 }
 
 .incorrect-flyer {
-    background: rgba(255, 69, 58, 0.9);
+    background: var(--color-error);
 }
-
