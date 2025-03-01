@@ -1,4 +1,4 @@
-/* Modern Dark Theme Variables */
+/* Modern Dark Theme Variables  */
 :root {
     /* Core Colors */
     --color-bg: hsl(220, 25%, 10%);
@@ -13,6 +13,7 @@
     --color-button-bg: hsl(210, 90%, 60%);
     --color-button-hover: hsl(210, 85%, 50%);
     --color-button-focus-shadow: hsla(210, 90%, 60%, 0.4);
+    --select-item-button-hover: hsl(220, 25%, 22%);
 
     /* Status Colors */
     --color-success: hsla(117, 100%, 61%, 0.9);
@@ -21,6 +22,18 @@
     /* Border Radius & Shadows */
     --border-radius: 8px;
     --shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+    /* Layout & Spacing*/
+    --sidebar-width: 20vw;
+
+    /* --- Settings Menu Specific Variables --- */
+    --settings-menu-heading-color: var(--color-button-bg); /* Heading color, using button bg for primary accent */
+    --settings-menu-border-color: var(--color-input-border); /* Border color for menu elements, using input border for consistency */
+    --settings-menu-element-bg: hsl(220, 25%, 20%); /* Background for checkboxes/select, slightly lighter surface */
+    --settings-menu-label-text: hsl(210, 20%, 75%); /* Label text color, slightly darker than main text for hierarchy */
+    --settings-menu-accent-focus-shadow: hsla(210, 90%, 60%, 0.2); /* Focus shadow for menu elements, softer accent */
+    --settings-menu-focus-border-color: hsl(210, 80%, 50%); /* Focus border for menu elements, darker accent */
+    --settings-menu-border-radius-small: 4px; /* Smaller border-radius for checkboxes and select */
 }
 
 /* Auto-Apply Dark Mode if System Prefers */
@@ -32,7 +45,16 @@
     }
 }
 
-/* Font Setup */
+/* Auto-Apply Dark Mode if System Prefers */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: hsl(220, 25%, 10%);
+        --color-surface: hsl(220, 25%, 16%);
+        --color-text: hsl(210, 25%, 88%);
+    }
+}
+
+/* Font Setup  */
 @font-face {
     font-family: 'Poppins';
     src: url('fonts/Poppins-Regular.ttf') format('truetype');
@@ -51,43 +73,327 @@
     font-weight: 600;
 }
 
-/* Base Styles */
+/* Base Styles  */
 body {
     background-color: var(--color-bg);
     color: var(--color-text);
     font-family: 'Poppins', sans-serif;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+    margin: 0;
+    transition: grid-template-columns 0.3s ease;
+}
+
+/* Sidebar Styles  */
+.sidebar {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    padding: 1rem;
+    box-sizing: border-box;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    z-index: 20;
+    grid-row: 1 / 3;
+}
+
+.sidebar-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-input-border);
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-nav-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: var(--color-text);
+    border-radius: var(--border-radius);
+    margin-bottom: 0.5rem;
+    transition: background-color 0.2s ease;
 }
 
-/* Container */
-.container {
-    position: relative;
+.sidebar-nav-item.active,
+.sidebar-nav-item:hover {
+    background-color:var(--select-item-button-hover);
+    /* Slightly lighter surface on hover/active */
+}
+
+.sidebar-nav-item .icon {
+    /* Style for the icon span in sidebar nav items */
+    margin-right: 0.75rem;
+    width: 1.2rem;
+    /* Ensure icons align nicely */
     text-align: center;
-    background: var(--color-surface);
+    font-size: 1.2rem;
+    /* Adjust emoji/entity size if needed */
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    /* Push footer to the bottom */
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-input-border);
+    text-align: center;
+}
+
+/* Main Content Styles  */
+.content {
+    display: flex;
+    flex-direction: column;
     padding: 2rem;
+    box-sizing: border-box;
+    grid-column: 2;
+    /* Content occupies the second column of the grid */
+}
+
+/* Top Navigation within Content Area  */
+.top-nav {
+    display: flex;
+    justify-content: flex-end;
+    /* Settings icon on the right */
+    align-items: center;
+    /* Vertically center items */
+    padding: 1rem 2rem;
+    /* Add horizontal padding to match content */
+    box-sizing: border-box;
+    /* Include padding in width calculation */
+    position: relative;
+    /* For positioning sidebar toggle button */
+}
+
+/* ------------------------------------------------------- */
+/*         Sidebar Toggle Button        */
+/* ------------------------------------------------------- */
+.sidebar-toggle-btn.icon-button { 
+    /* *** Base styles from .icon-button (now applied because of the class) *** */
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 2rem; /* Default icon-button font-size (can adjust) */
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s ease, left 0.3s ease, transform 0.3s ease; /* Combined transitions */
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    z-index: 21;
+    display: flex; /* Center the arrow icon */
+    align-items: center;
+    justify-content: center; 
+
+}
+
+.sidebar-toggle-btn.icon-button:focus { /* IMPORTANT: .icon-button class added back here */
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.sidebar-toggle-btn.icon-button::before { /* IMPORTANT: .icon-button class added back here */
+    content: "➔"; /* Right arrow emoji */
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.95, 0.01, 0.31, 0.68) /*  Slight overshoot for rotation */
+}
+
+/* Sidebar Toggle Button - Expanded State */
+body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button { /* IMPORTANT: .icon-button class added back here */
+    left: calc(var(--sidebar-width) + 2.5rem + 1rem); /* Sidebar width - button width - some extra spacing */;
+    transform: translateX(-100%);
+}
+
+body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORTANT: .icon-button class added back here */
+    transform: rotate(180deg); /* Rotated arrow in expanded state */
+}
+
+
+/* Settings Menu */
+.settings-menu {
+    position: absolute;
+    top: 6.5rem;
+    right: 4rem;
+    background: var(--color-surface);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
-    width: 350px;
+    padding: 1.5rem;
+    width: 14rem;
+    display: none;
+    z-index: 10;
+    color: var(--color-text);
+    font-family: sans-serif;
 }
 
-/* Typography */
-h1 {
-    font-size: 1.7rem;
+/* Show the menu when active */
+.settings-menu.visible {
+    display: block;
+}
+
+.settings-menu h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    color: var(--settings-menu-heading-color);
+}
+
+.settings-menu label {
+    display: grid; /* Using CSS Grid for label layout */
+    grid-template-columns: auto 1fr; /* Two columns: auto for checkbox, 1fr for text */
+    align-items: center; /* Vertically align items in the grid */
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: var(--settings-menu-label-text);
+    gap: 0.75rem; /* Gap between checkbox and text */
+}
+
+.settings-menu label:last-child {
+    margin-bottom: 0;
+    font-weight: bold;
+    display: flex; /* Revert Difficulty label to flex for bolding and alignment */
+    align-items: center; /* Center align Difficulty text */
+}
+
+.settings-menu input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--settings-menu-border-color);
+    border-radius: 0.2rem;
+    background-color: var(--settings-menu-element-bg);
+    margin: 0; /* Reset margins for grid layout */
+    cursor: pointer;
+    outline: none;
+    display: block; /* Ensure checkbox behaves as a block in grid */
+    vertical-align: middle;
+    position: relative;
+    top: 0rem;
+}
+
+.settings-menu input[type="checkbox"]:checked {
+    background-color: var(--select-item-button-hover);
+    border-color: var(--select-item-button-hover);
+}
+
+.settings-menu input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 2px var(--select-item-button-hover);
+    border-color: var(--settings-menu-focus-border-color);
+}
+
+.settings-menu input[type="checkbox"]:checked::before {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-text);
+    font-size: 0.8rem;
+}
+
+
+.settings-menu select#difficulty {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--settings-menu-border-color);
+    border-radius: var(--settings-menu-border-radius-small);
+    background-color: var(--settings-menu-element-bg);
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 1rem;
+    outline: none;
+    margin-left: 0.5rem;
+}
+
+.settings-menu select#difficulty:focus {
+    box-shadow: 0 0 0 2px var(--select-item-button-hover);
+    border-color: var(--settings-menu-focus-border-color);
+}
+
+/* More specific highlight color for selected/active option */
+.settings-menu select#difficulty option:checked,
+.settings-menu select#difficulty option:hover,
+.settings-menu select#difficulty option:active { /* Added :active state */
+    background-color: var(--select-item-button-hover) !important; /* Added !important */
+    color: var(--color-text) !important; /* Added !important and ensured text color */
+}
+
+.settings-menu select#difficulty option {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+}
+
+/* icon-button class is now for base button styles and hover effect */
+.icon-button { /* IMPORTANT: .icon-button class is now defined again with base styles */
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 1rem;
+    /* Adjust as needed */
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s ease;
+}
+
+.icon-button:hover {
+    background-color: var(--select-item-button-hover); /* Hover effect for icon buttons */
+}
+
+
+/* --- Settings Button Top Specific Style --- */
+#settings-btn-top {
+    color: var(--color-text); /* Explicitly set text color to inherit theme text color */
+    background: none;       /* Explicitly set background to none */
+}
+
+
+/* Container Styles  */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    align-self: center;
+    /* Center the container itself in content */
+    max-width: 800px;
+    /* Example max width for content container */
+    margin: 0 auto;
+    /* Center horizontally within content */
+}
+
+.container h1 {
+    margin-bottom: 1.5rem;
 }
 
 #math-question {
-    font-size: 1.3rem;
-    padding: 12px;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
-/* Inputs */
+/* Inputs  */
 input {
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-shadow: var(--shadow-lg);
@@ -96,8 +402,9 @@ input {
     padding: 12px;
     border-radius: var(--border-radius);
     color: var(--color-text);
-    width: calc(100% - 24px);
-    margin-bottom: 1rem;
+    width: 250px;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
     font-size: 1.4rem;
     text-align: center;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -114,13 +421,13 @@ input:focus {
     box-shadow: 0 0 6px var(--color-input-focus);
 }
 
-/* Buttons */
+/* Buttons  */
 button {
     font-family: 'Poppins', sans-serif;
     background: var(--color-button-bg);
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 0.8rem 1.5rem;
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1.1rem;
@@ -140,7 +447,7 @@ button:active {
     transform: scale(0.98);
 }
 
-/* Borders for Correct/Incorrect Answers */
+/* Borders for Correct/Incorrect Answers  */
 .correct-border {
     border: 1px solid var(--color-success);
     transition: border-color 0.3s ease;
@@ -151,14 +458,18 @@ button:active {
     transition: border-color 0.3s ease;
 }
 
-/* Floating Feedback */
+/* Floating Feedback  */
+.flyer-flex-wrapper{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #floating-result {
-    position: fixed;
-    bottom: 25%;
-    left: calc(50%-width);
-    transform: translateX(-50%) translateY(-20px);
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
+    
+    background: var(--select-item-button-hover);
+    color: var(--color-text);
     padding: 12px 20px;
     border-radius: 8px;
     font-size: 1.2rem;
@@ -176,52 +487,142 @@ button:active {
     background: var(--color-error);
 }
 
-/* Style the settings menu */
-.settings-menu {
-    position: absolute;
-    top: 5rem;
-    right: 0;
-    background: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 1rem;
-    width: 12rem;
-    display: none;
-    z-index: 10;
+
+/* --- Sidebar Toggle Styles --- */
+body.sidebar-collapsed {
+    grid-template-columns: 0fr 1fr;
+    /* Sidebar column becomes 0 width */
 }
 
-/* Show the menu when active */
-.settings-menu.visible {
-    display: block;
+body.sidebar-collapsed .sidebar {
+    transform: translateX(-100%);
+    /* Hide sidebar off-screen */
 }
 
-/* Adjust the settings button */
-#settings-btn {
-    font-size: 1.5rem;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0.5rem;
-    color: #333;
+/* Sidebar Toggle Button - Collapsed State (Sidebar Hidden) */
+body.sidebar-collapsed .sidebar-toggle-btn.icon-button::before { /* IMPORTANT: .icon-button class added back here */
+    content: "➔";
+    /* Right arrow when sidebar is collapsed */
 }
 
-/* Style checkboxes and dropdown */
-.settings-menu label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
+/* Sidebar Toggle Button - Expanded State (Sidebar Visible) */
+body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORTANT: .icon-button class added back here */
+    content: "➔";
+    /* Right arrow for both states */
+    transform: rotate(180deg);
+    /* Rotate 180 degrees to reverse direction */
+    display: inline-block;
+    /* Ensure rotation is applied correctly */
 }
 
-.settings-menu select {
-    width: 100%;
-    padding: 0.25rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    background: white;
+/* Ensure button content is replaced by ::before  */
+.sidebar-toggle-btn.icon-button { /* IMPORTANT: .icon-button class added back here */
+    content: "";
+    /* Clear default button content, rely on ::before */
+    display: inline-block;
+    /* Needed for content replacement to work */
 }
 
-/* Improve menu positioning within nav */
-nav {
-    position: relative;
+
+/* Responsive adjustments - Example for smaller screens  */
+@media (max-width: 768px) {
+
+    body {
+        grid-template-columns: 1fr;
+        /* Stack sidebar and content vertically on smaller screens */
+        grid-template-rows: auto auto 1fr;
+        /* Top nav, Sidebar, then Content */
+    }
+
+    .top-nav {
+        grid-row: 1;
+        /* Top nav is first row */
+    }
+
+    .sidebar {
+        position: relative;
+        /* Sidebar is no longer fixed on small screens, flows in document */
+        height: auto;
+        /* Adjust height to content */
+        width: 100%;
+        /* Take full width */
+        flex-direction: row;
+        /* Horizontal layout for small screens */
+        padding: 0.5rem;
+        border-bottom: 1px solid var(--color-input-border);
+        transform: translateX(0);
+        /* Always visible on small screens by default */
+        grid-row: 2;
+        /* Sidebar is second row */
+    }
+
+    body.sidebar-collapsed .sidebar {
+        /* Disable collapse on small screens */
+        transform: translateX(0);
+        /* Keep sidebar visible */
+    }
+
+    .sidebar-toggle-btn.icon-button { /* IMPORTANT: .icon-button class added back here */
+        display: none;
+        /* Hide toggle button on small screens as sidebar is always visible */
+    }
+
+
+    .sidebar-header {
+        display: none;
+        /* Hide header on small screens to save space */
+    }
+
+    .sidebar-footer {
+        display: none;
+        /* Hide footer on small screens to save space */
+    }
+
+
+    .sidebar-nav {
+        flex-direction: row;
+        /* Horizontal navigation on small screens */
+        justify-content: space-around;
+        /* Distribute items evenly */
+        width: 100%;
+    }
+
+    .sidebar-nav-item {
+        margin-bottom: 0;
+        /* Remove bottom margin for horizontal nav */
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    .sidebar-nav-item span {
+        display: none;
+        /* Hide text labels on very small screens, just icons */
+    }
+
+
+    .content {
+        padding: 1rem;
+        margin-left: 0;
+        /* Content takes full width on small screens */
+        grid-column: 1;
+        /* Content spans full width */
+        grid-row: 3;
+        /* Content is third row */
+    }
+
+
+    .container {
+        padding: 1rem;
+        /* Adjust container padding for smaller screens */
+    }
+
+    #floating-result {
+        bottom: 10%;
+        /* Adjust floating result position on smaller screens */
+    }
+
+    .settings-menu {
+        top: 2.5rem;
+        /* Adjust settings menu position on smaller screens */
+    }
 }

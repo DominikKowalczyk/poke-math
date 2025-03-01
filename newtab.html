@@ -8,48 +8,64 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="katex.min.css">
     <script defer src="katex.min.js"></script>
-    <script defer src="newtab.js"></script>
+    <script defer type="module" src="js/main.js"></script>
 </head>
 
 <body>
-    <nav class="tab">
-        <div class="icons">
-            <div data-index="1" class="icon fad fa-home"></div>
-            <div data-index="2" class="icon fal fa-plus"></div>
-            <div data-index="3" class="icon fad fa-user fa-swap-opacity"></div>
-            <button id="settings-btn" class="icon fal fa-cog">⚙️ Settings</button>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <span class="math-symbol-entity">&nabla;</span> Poke Math
         </div>
-        <div class="bar">
-            <div class="cap"></div>
-            <div class="middle">
-                <div class="side"></div>
-                <div class="circle"></div>
-                <div class="side"></div>
-            </div>
-            <div class="cap"></div>
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-nav-item active">
+                <span class="icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" class="sidebar-nav-item">
+                <span class="icon">➕</span>
+                <span>New Challenge</span>
+            </a>
+            <a href="#" class="sidebar-nav-item">
+                <span class="icon">👤</span>
+                <span>Profile</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
         </div>
-        <div id="settings-menu" class="settings-menu">
-            <h3>Settings</h3>
-            <label><input type="checkbox" name="operator" value="+"> Addition</label>
-            <label><input type="checkbox" name="operator" value="-"> Subtraction</label>
-            <label><input type="checkbox" name="operator" value="×"> Multiplication</label>
-            <label><input type="checkbox" name="operator" value="÷"> Division</label>
-            <label>Difficulty:
-                <select id="difficulty">
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                </select>
-            </label>
+    </aside>
+    <main class="content">
+        <nav class="top-nav">
+            <button id="sidebar-toggle-btn" class="icon-button sidebar-toggle-btn">
+            </button>
+            <button id="settings-btn-top" class="icon-button">
+                ⚙️
+            </button>
+        </nav>
+
+        <div class="container">
+            <h1>Math Challenge</h1>
+            <div id="math-question"></div>
+            <input type="text" id="answer" placeholder="Your answer">
+            <button id="submit">Check</button>
         </div>
-    </nav>
-    
-    <div class="container">
-        <h1>Math Challenge</h1>
-        <div id="math-question"></div>
-        <input type="text" id="answer" placeholder="Your answer">
-        <button id="submit">Check</button>
+        <div class="flyer-flex-wrapper"></div>
+    </main>
+
+    <div id="settings-menu" class="settings-menu">
+        <h3>Settings</h3>
+        <label><input type="checkbox" name="operator" value="+"> ➕ Addition</label>
+        <label><input type="checkbox" name="operator" value="-"> ➖ Subtraction</label>
+        <label><input type="checkbox" name="operator" value="×"> ✖️ Multiplication</label>
+        <label><input type="checkbox" name="operator" value="÷"> ➗ Division</label>
+        <label>Difficulty:
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </label>
     </div>
+
 </body>
 
 </html>
