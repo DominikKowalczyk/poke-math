@@ -1,7 +1,19 @@
-import { questionEl, answerInput, submitBtn, settingsBtnTop, settingsMenu, sidebarToggleBtn } from '../ui/elements.js'; // Updated import to include settingsBtnTop and sidebarToggleBtn
+import {
+    questionEl,
+    answerInput,
+    submitBtn,
+    settingsBtnTop,
+    settingsMenu,
+    sidebarToggleBtn,
+    relaxedModeBtn,
+    blitzModeBtn
+} from '../ui/elements.js';
+import { switchMode } from './modemanager.js';
 import { generateQuestion } from './questionGenerator.js';
 import { showFloatingResult } from './uiFeedback.js';
 
+
+let currentMode = 'relaxed';
 export function setupEventListeners() {
     submitBtn.addEventListener("click", () => {
         let userAnswer = answerInput.value.trim().replace(",", ".");
@@ -52,5 +64,16 @@ export function setupEventListeners() {
         if (!settingsMenu.contains(event.target) && event.target !== settingsBtnTop) { // Updated to settingsBtnTop
             settingsMenu.classList.remove("visible");
         }
+    });
+
+    // Mode switching event listeners
+    relaxedModeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        switchMode('relaxed');
+    });
+
+    blitzModeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        switchMode('blitz');
     });
 }

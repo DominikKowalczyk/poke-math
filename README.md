@@ -1,6 +1,6 @@
-# Poke Math
+#Pierre
 
-Poke Math is a Chrome extension that replaces your new tab with a math challenge. It uses KaTeX for rendering math symbols and equations, providing an engaging experience every time you open a new tab.
+Pierre is a Chrome extension that replaces your new tab with a math challenge. It uses KaTeX for rendering math symbols and equations, providing an engaging experience every time you open a new tab.
 
 ## Project Structure
 
@@ -33,7 +33,7 @@ Poke Math is a Chrome extension that replaces your new tab with a math challenge
    - Click on "Load unpacked" and select the project folder.
    
 2. **Operation**  
-   - When you open a new tab in Chrome, Poke Math will display a math question by overriding the default new tab page.
+   - When you open a new tab in Chrome,Pierre will display a math question by overriding the default new tab page.
 
 3. **Customization**  
    - Modify [js/main.js](js/main.js) for extending the math challenges.
@@ -41,7 +41,7 @@ Poke Math is a Chrome extension that replaces your new tab with a math challenge
 
 ## Roadmap
 
-The goal is to evolve Poke Math into a fully-fledged math challenge engine with programmatic question generation across various math topics and difficulty levels. Below are the key milestones and features planned for future development:
+The goal is to evolvePierre into a fully-fledged math challenge engine with programmatic question generation across various math topics and difficulty levels. Below are the key milestones and features planned for future development:
 
 ### Phase 1: Core Engine Enhancements
 - **Dynamic Question Generation:**  

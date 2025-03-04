@@ -1,58 +1,63 @@
-/* Modern Dark Theme Variables  */
+/* Modern Dark/Light Theme Variables  */
 :root {
+    color-scheme: light dark;
+  
     /* Core Colors */
-    --color-bg: hsl(220, 25%, 10%);
-    --color-surface: hsl(220, 25%, 16%);
-    --color-text: hsl(210, 25%, 88%);
-
+    --color-bg: light-dark(hsl(0, 0%, 98%), hsl(220, 25%, 10%));
+    --color-surface: light-dark(hsl(0, 0%, 100%), hsl(220, 25%, 16%));
+    --color-text: light-dark(hsl(210, 15%, 20%), hsl(210, 25%, 88%));
+  
     /* Interactive Elements */
-    --color-input-bg: hsl(220, 20%, 24%);
-    --color-input-border: hsl(220, 15%, 50%);
-    --color-input-focus: hsl(210, 90%, 60%);
-
-    --color-button-bg: hsl(210, 90%, 60%);
-    --color-button-hover: hsl(210, 85%, 50%);
-    --color-button-focus-shadow: hsla(210, 90%, 60%, 0.4);
-    --select-item-button-hover: hsl(220, 25%, 22%);
-
+    --color-input-bg: light-dark(hsl(0, 0%, 100%), hsl(220, 20%, 24%));
+    --color-input-border: light-dark(hsl(210, 10%, 60%), hsl(220, 15%, 50%));
+    --color-input-focus: light-dark(hsl(210, 90%, 40%), hsl(210, 90%, 60%));
+  
+    --color-button-bg: light-dark(hsl(210, 90%, 50%), hsl(210, 90%, 60%));
+    --color-button-hover: light-dark(hsl(210, 85%, 45%), hsl(210, 85%, 50%));
+    --color-button-focus-shadow: light-dark(hsla(210, 90%, 50%, 0.4), hsla(210, 90%, 60%, 0.4));
+    --select-item-button-hover: light-dark(hsl(0, 0%, 95%), hsl(220, 25%, 22%));
+  
     /* Status Colors */
-    --color-success: hsla(117, 100%, 61%, 0.9);
-    --color-error: hsla(3, 100%, 61%, 0.9);
-
+    --color-success: light-dark(hsla(117, 100%, 40%, 0.9), hsla(117, 100%, 61%, 0.9));
+    --color-error: light-dark(hsla(3, 100%, 50%, 0.9), hsla(3, 100%, 61%, 0.9));
+  
     /* Border Radius & Shadows */
     --border-radius: 8px;
     --shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.2);
-
-    /* Layout & Spacing*/
+  
+    /* Layout & Spacing */
     --sidebar-width: 20vw;
-
+  
     /* --- Settings Menu Specific Variables --- */
-    --settings-menu-heading-color: var(--color-button-bg); /* Heading color, using button bg for primary accent */
-    --settings-menu-border-color: var(--color-input-border); /* Border color for menu elements, using input border for consistency */
-    --settings-menu-element-bg: hsl(220, 25%, 20%); /* Background for checkboxes/select, slightly lighter surface */
-    --settings-menu-label-text: hsl(210, 20%, 75%); /* Label text color, slightly darker than main text for hierarchy */
-    --settings-menu-accent-focus-shadow: hsla(210, 90%, 60%, 0.2); /* Focus shadow for menu elements, softer accent */
-    --settings-menu-focus-border-color: hsl(210, 80%, 50%); /* Focus border for menu elements, darker accent */
-    --settings-menu-border-radius-small: 4px; /* Smaller border-radius for checkboxes and select */
-}
-
-/* Auto-Apply Dark Mode if System Prefers */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-bg: hsl(220, 25%, 10%);
-        --color-surface: hsl(220, 25%, 16%);
-        --color-text: hsl(210, 25%, 88%);
-    }
-}
-
-/* Auto-Apply Dark Mode if System Prefers */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-bg: hsl(220, 25%, 10%);
-        --color-surface: hsl(220, 25%, 16%);
-        --color-text: hsl(210, 25%, 88%);
-    }
-}
+    --settings-menu-heading-color: var(--color-button-bg);
+    --settings-menu-border-color: var(--color-input-border);
+    --settings-menu-element-bg: light-dark(hsl(0, 0%, 97%), hsl(220, 25%, 20%));
+    --settings-menu-label-text: light-dark(hsl(210, 15%, 40%), hsl(210, 20%, 75%));
+    --settings-menu-accent-focus-shadow: light-dark(hsla(210, 90%, 50%, 0.2), hsla(210, 90%, 60%, 0.2));
+    --settings-menu-focus-border-color: light-dark(hsl(210, 70%, 40%), hsl(210, 80%, 50%));
+    --settings-menu-border-radius-small: 4px;
+  
+    /* Timer Shine Effect Core Properties */
+    --stripe-angle: 135deg;
+    --stripe-base-width: 100px;
+    --stripe-count: 3;
+  
+    /* Calculated Stripe Dimensions */
+    --stripe-gap: calc(var(--stripe-base-width) * 0.25);
+    --stripe-white-width: calc(var(--stripe-base-width) * 0.25);
+    --single-stripe-width: calc(var(--stripe-base-width));
+    --total-pattern-width: calc(var(--single-stripe-width) * var(--stripe-count));
+  
+    /* Shine Element Dimensions */
+    --shine-width: calc(var(--total-pattern-width) * 1.5);
+    --shine-offset: calc(var(--shine-width) * -0.33);
+  
+    /* Animation Properties */
+    --animation-distance: calc(var(--shine-width) * 3);
+    --animation-duration: 2s;
+    --animation-repeats: 1;
+  }
+  
 
 /* Font Setup  */
 @font-face {
@@ -86,6 +91,15 @@ body {
     transition: grid-template-columns 0.3s ease;
 }
 
+.challenge-wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: fit-content;
+    margin: 2rem auto;
+    justify-content: center;
+}
+
 /* Sidebar Styles  */
 .sidebar {
     background-color: var(--color-surface);
@@ -114,6 +128,10 @@ body {
     margin-bottom: 2rem;
 }
 
+.math-symbol-entity {
+    font-size: 1.5rem;
+}
+
 .sidebar-nav {
     display: flex;
     flex-direction: column;
@@ -132,7 +150,7 @@ body {
 
 .sidebar-nav-item.active,
 .sidebar-nav-item:hover {
-    background-color:var(--select-item-button-hover);
+    background-color: var(--select-item-button-hover);
     /* Slightly lighter surface on hover/active */
 }
 
@@ -152,6 +170,20 @@ body {
     padding-top: 1rem;
     border-top: 1px solid var(--color-input-border);
     text-align: center;
+}
+
+.mode-section {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-input-border);
+    padding-top: 1rem;
+}
+
+.mode-header {
+    color: var(--settings-menu-heading-color);
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
 }
 
 /* Main Content Styles  */
@@ -182,46 +214,58 @@ body {
 /* ------------------------------------------------------- */
 /*         Sidebar Toggle Button        */
 /* ------------------------------------------------------- */
-.sidebar-toggle-btn.icon-button { 
+.sidebar-toggle-btn.icon-button {
     /* *** Base styles from .icon-button (now applied because of the class) *** */
     background: none;
     border: none;
     color: var(--color-text);
     cursor: pointer;
-    font-size: 2rem; /* Default icon-button font-size (can adjust) */
+    font-size: 2rem;
+    /* Default icon-button font-size (can adjust) */
     padding: 0.5rem;
     border-radius: var(--border-radius);
-    transition: background-color 0.2s ease, left 0.3s ease, transform 0.3s ease; /* Combined transitions */
+    transition: background-color 0.2s ease, left 0.3s ease, transform 0.3s ease;
+    /* Combined transitions */
     position: absolute;
     top: 1rem;
     left: 2rem;
     z-index: 21;
-    display: flex; /* Center the arrow icon */
+    display: flex;
+    /* Center the arrow icon */
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 
 }
 
-.sidebar-toggle-btn.icon-button:focus { /* IMPORTANT: .icon-button class added back here */
+.sidebar-toggle-btn.icon-button:focus {
+    /* IMPORTANT: .icon-button class added back here */
     outline: none;
     border: none;
     box-shadow: none;
 }
 
-.sidebar-toggle-btn.icon-button::before { /* IMPORTANT: .icon-button class added back here */
-    content: "➔"; /* Right arrow emoji */
+.sidebar-toggle-btn.icon-button::before {
+    /* IMPORTANT: .icon-button class added back here */
+    content: "➔";
+    /* Right arrow emoji */
     display: inline-block;
-    transition: transform 0.4s cubic-bezier(0.95, 0.01, 0.31, 0.68) /*  Slight overshoot for rotation */
+    transition: transform 0.4s cubic-bezier(0.95, 0.01, 0.31, 0.68)
+        /*  Slight overshoot for rotation */
 }
 
 /* Sidebar Toggle Button - Expanded State */
-body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button { /* IMPORTANT: .icon-button class added back here */
-    left: calc(var(--sidebar-width) + 2.5rem + 1rem); /* Sidebar width - button width - some extra spacing */;
+body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button {
+    /* IMPORTANT: .icon-button class added back here */
+    left: calc(var(--sidebar-width) + 2.5rem + 1rem);
+    /* Sidebar width - button width - some extra spacing */
+    ;
     transform: translateX(-100%);
 }
 
-body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORTANT: .icon-button class added back here */
-    transform: rotate(180deg); /* Rotated arrow in expanded state */
+body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before {
+    /* IMPORTANT: .icon-button class added back here */
+    transform: rotate(180deg);
+    /* Rotated arrow in expanded state */
 }
 
 
@@ -255,20 +299,26 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
 }
 
 .settings-menu label {
-    display: grid; /* Using CSS Grid for label layout */
-    grid-template-columns: auto 1fr; /* Two columns: auto for checkbox, 1fr for text */
-    align-items: center; /* Vertically align items in the grid */
+    display: grid;
+    /* Using CSS Grid for label layout */
+    grid-template-columns: auto 1fr;
+    /* Two columns: auto for checkbox, 1fr for text */
+    align-items: center;
+    /* Vertically align items in the grid */
     margin-bottom: 0.75rem;
     font-size: 1rem;
     color: var(--settings-menu-label-text);
-    gap: 0.75rem; /* Gap between checkbox and text */
+    gap: 0.75rem;
+    /* Gap between checkbox and text */
 }
 
 .settings-menu label:last-child {
     margin-bottom: 0;
     font-weight: bold;
-    display: flex; /* Revert Difficulty label to flex for bolding and alignment */
-    align-items: center; /* Center align Difficulty text */
+    display: flex;
+    /* Revert Difficulty label to flex for bolding and alignment */
+    align-items: center;
+    /* Center align Difficulty text */
 }
 
 .settings-menu input[type="checkbox"] {
@@ -280,11 +330,11 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
     border: 1px solid var(--settings-menu-border-color);
     border-radius: 0.2rem;
     background-color: var(--settings-menu-element-bg);
-    margin: 0; /* Reset margins for grid layout */
+    margin: 0;
+    /* Reset margins for grid layout */
     cursor: pointer;
     outline: none;
-    display: block; /* Ensure checkbox behaves as a block in grid */
-    vertical-align: middle;
+    display: block;
     position: relative;
     top: 0rem;
 }
@@ -333,9 +383,12 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
 /* More specific highlight color for selected/active option */
 .settings-menu select#difficulty option:checked,
 .settings-menu select#difficulty option:hover,
-.settings-menu select#difficulty option:active { /* Added :active state */
-    background-color: var(--select-item-button-hover) !important; /* Added !important */
-    color: var(--color-text) !important; /* Added !important and ensured text color */
+.settings-menu select#difficulty option:active {
+    /* Added :active state */
+    background-color: var(--select-item-button-hover) !important;
+    /* Added !important */
+    color: var(--color-text) !important;
+    /* Added !important and ensured text color */
 }
 
 .settings-menu select#difficulty option {
@@ -344,7 +397,8 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
 }
 
 /* icon-button class is now for base button styles and hover effect */
-.icon-button { /* IMPORTANT: .icon-button class is now defined again with base styles */
+.icon-button {
+    /* IMPORTANT: .icon-button class is now defined again with base styles */
     background: none;
     border: none;
     color: var(--color-text);
@@ -357,14 +411,17 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
 }
 
 .icon-button:hover {
-    background-color: var(--select-item-button-hover); /* Hover effect for icon buttons */
+    background-color: var(--select-item-button-hover);
+    /* Hover effect for icon buttons */
 }
 
 
 /* --- Settings Button Top Specific Style --- */
 #settings-btn-top {
-    color: var(--color-text); /* Explicitly set text color to inherit theme text color */
-    background: none;       /* Explicitly set background to none */
+    color: var(--color-text);
+    /* Explicitly set text color to inherit theme text color */
+    background: none;
+    /* Explicitly set background to none */
 }
 
 
@@ -376,12 +433,10 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
     justify-content: center;
     padding: 2rem;
     box-sizing: border-box;
-    align-self: center;
-    /* Center the container itself in content */
-    max-width: 800px;
-    /* Example max width for content container */
-    margin: 0 auto;
-    /* Center horizontally within content */
+    width: fit-content;
+    /* Makes container fit its content */
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
 }
 
 .container h1 {
@@ -459,7 +514,7 @@ button:active {
 }
 
 /* Floating Feedback  */
-.flyer-flex-wrapper{
+.flyer-flex-wrapper {
     margin-top: 2rem;
     display: flex;
     justify-content: center;
@@ -467,7 +522,7 @@ button:active {
 }
 
 #floating-result {
-    
+
     background: var(--select-item-button-hover);
     color: var(--color-text);
     padding: 12px 20px;
@@ -500,13 +555,15 @@ body.sidebar-collapsed .sidebar {
 }
 
 /* Sidebar Toggle Button - Collapsed State (Sidebar Hidden) */
-body.sidebar-collapsed .sidebar-toggle-btn.icon-button::before { /* IMPORTANT: .icon-button class added back here */
+body.sidebar-collapsed .sidebar-toggle-btn.icon-button::before {
+    /* IMPORTANT: .icon-button class added back here */
     content: "➔";
     /* Right arrow when sidebar is collapsed */
 }
 
 /* Sidebar Toggle Button - Expanded State (Sidebar Visible) */
-body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORTANT: .icon-button class added back here */
+body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before {
+    /* IMPORTANT: .icon-button class added back here */
     content: "➔";
     /* Right arrow for both states */
     transform: rotate(180deg);
@@ -516,7 +573,8 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
 }
 
 /* Ensure button content is replaced by ::before  */
-.sidebar-toggle-btn.icon-button { /* IMPORTANT: .icon-button class added back here */
+.sidebar-toggle-btn.icon-button {
+    /* IMPORTANT: .icon-button class added back here */
     content: "";
     /* Clear default button content, rely on ::before */
     display: inline-block;
@@ -562,7 +620,8 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
         /* Keep sidebar visible */
     }
 
-    .sidebar-toggle-btn.icon-button { /* IMPORTANT: .icon-button class added back here */
+    .sidebar-toggle-btn.icon-button {
+        /* IMPORTANT: .icon-button class added back here */
         display: none;
         /* Hide toggle button on small screens as sidebar is always visible */
     }
@@ -599,6 +658,15 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
         /* Hide text labels on very small screens, just icons */
     }
 
+    .mode-section {
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
+    }
+
+    .mode-header {
+        display: none;
+    }
 
     .content {
         padding: 1rem;
@@ -624,5 +692,63 @@ body:not(.sidebar-collapsed) .sidebar-toggle-btn.icon-button::before { /* IMPORT
     .settings-menu {
         top: 2.5rem;
         /* Adjust settings menu position on smaller screens */
+    }
+}
+
+/* Timer Bar Styles */
+#timer-bar {
+    display: none;
+    /* Hidden by default */
+}
+
+/* Only show and style timer in blitz mode */
+body[data-mode="blitz"] #timer-bar {
+    display: block;
+    width: 100%;
+    height: 6px;
+    background: var(--color-error);
+    position: absolute;
+    top: -24px;
+    left: 0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+body[data-mode="blitz"] #timer-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--progress, 100%);
+    background: var(--current-color, var(--color-success));
+    transition: width linear;
+}
+
+body[data-mode="blitz"] #timer-bar::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: var(--shine-offset);
+    width: var(--shine-width);
+    height: calc(100% + 2px);
+    background: repeating-linear-gradient(
+        var(--stripe-angle),
+        transparent 0,
+        transparent var(--stripe-gap),
+        rgba(255, 255, 255, 1) var(--stripe-gap),
+        rgba(255, 255, 255, 1) calc(var(--stripe-gap) + var(--stripe-white-width)),
+        transparent calc(var(--stripe-gap) + var(--stripe-white-width)),
+        transparent var(--single-stripe-width)
+    );
+    animation: shine var(--animation-duration) linear var(--animation-repeats);
+}
+
+@keyframes shine {
+    from {
+        transform: translateX(var(--shine-offset));
+    }
+    to {
+        transform: translateX(var(--animation-distance));
     }
 }

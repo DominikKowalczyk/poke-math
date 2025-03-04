@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poke Math</title>
+    <title>&#x1D4AB; Pierre</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="katex.min.css">
     <script defer src="katex.min.js"></script>
@@ -14,21 +14,20 @@
 <body>
     <aside class="sidebar">
         <div class="sidebar-header">
-            <span class="math-symbol-entity">&nabla;</span> Poke Math
+            <span class="math-symbol-entity">&#x1D4AB; </span>Pierre
         </div>
         <nav class="sidebar-nav">
-            <a href="#" class="sidebar-nav-item active">
-                <span class="icon">🏠</span>
-                <span>Home</span>
-            </a>
-            <a href="#" class="sidebar-nav-item">
-                <span class="icon">➕</span>
-                <span>New Challenge</span>
-            </a>
-            <a href="#" class="sidebar-nav-item">
-                <span class="icon">👤</span>
-                <span>Profile</span>
-            </a>
+            <div class="mode-section" id="mode-section">
+                <div class="mode-header">Practise Modes</div>
+                <a href="#" class="sidebar-nav-item active" id="relaxed-mode" data-mode="relaxed">
+                    <span class="icon">🌟</span>
+                    <span>Relaxed</span>
+                </a>
+                <a href="#" class="sidebar-nav-item" id="blitz-mode" data-mode="blitz">
+                    <span class="icon">⚡</span>
+                    <span>Blitz</span>
+                </a>
+            </div>
         </nav>
         <div class="sidebar-footer">
         </div>
@@ -42,11 +41,14 @@
             </button>
         </nav>
 
-        <div class="container">
-            <h1>Math Challenge</h1>
-            <div id="math-question"></div>
-            <input type="text" id="answer" placeholder="Your answer">
-            <button id="submit">Check</button>
+        <div class="challenge-wrapper">
+            <div id="timer-bar" class="timer-bar"></div>
+            <div id="challenge-container" class="container">
+                <h1>Math Challenge</h1>
+                <div id="math-question"></div>
+                <input type="text" id="answer" placeholder="Your answer">
+                <button id="submit">Check</button>
+            </div>
         </div>
         <div class="flyer-flex-wrapper"></div>
     </main>
