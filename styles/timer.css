@@ -1,0 +1,88 @@
+:root {  
+    /* Base Properties */
+    --stripe-count: 3;
+    --stripe-base-width: 20px;   /* Base width of white stripe */
+    --gap-base-width: 60px;      /* Base width of gap */
+    --stripe-angle: 135deg;
+    --bar-height: 6px;
+
+    /* Trigonometric calculations for diagonal projection */
+    --angle-complement: calc(180deg - var(--stripe-angle));  /* 45deg */
+    --projection-factor: calc(1 + (var(--bar-height) / var(--stripe-base-width)));
+    /* This code does not work because there is some wierd shunnunigans with how px/px is calculated */
+    
+     /* Pattern dimensions*/
+     --stripe-width: var(--stripe-base-width);
+     --gap-width: var(--gap-base-width);
+     --pattern-unit: calc(var(--stripe-width) + var(--gap-width));
+    
+    /* Total pattern dimensions */
+    --total-width: calc(var(--pattern-unit) * var(--stripe-count) * var(--projection-factor));
+    --shine-offset: calc(var(--total-width) * -1);
+    
+    /* Animation properties */
+    --animation-duration: 3s;
+    --animation-repeats: 1;
+    --animation-distance: calc(var(--total-width) * 2);
+}
+
+/* Timer Bar Styles */
+#timer-bar {
+    display: none;
+    /* Hidden by default */
+}
+
+/* Only show and style timer in blitz mode */
+body[data-mode="blitz"] #timer-bar {
+    display: block;
+    width: 100%;
+    height: var(--bar-height);
+    background: var(--color-error);
+    position: absolute;
+    top: -24px;
+    left: 0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+body[data-mode="blitz"] #timer-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: var(--progress, 100%);
+    background: var(--current-color, var(--color-success));
+    transition: width linear;
+}
+
+body[data-mode="blitz"] #timer-bar::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: var(--shine-offset);
+    width: var(--total-width);
+    height: calc(100% + 2px);
+    background: repeating-linear-gradient(
+        var(--stripe-angle),
+        /* First gap */
+        transparent 0,
+        transparent var(--gap-width),
+        /* White stripe */
+        rgba(255, 255, 255, 1) var(--gap-width),
+        rgba(255, 255, 255, 1) calc(var(--gap-width) + var(--stripe-width)),
+        /* Second gap */
+        transparent calc(var(--gap-width) + var(--stripe-width)),
+        transparent calc(var(--gap-width) + var(--stripe-width) + var(--gap-width))
+    );
+    animation: shine var(--animation-duration) linear var(--animation-repeats) forwards;
+}
+
+@keyframes shine {
+    from {
+        transform: translateX(var(--shine-offset));
+    }
+    to {
+        transform: translateX(var(--animation-distance));
+    }
+}

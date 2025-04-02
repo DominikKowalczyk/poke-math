@@ -41,7 +41,7 @@ Pierre is a Chrome extension that replaces your new tab with a math challenge. I
 
 ## Roadmap
 
-The goal is to evolvePierre into a fully-fledged math challenge engine with programmatic question generation across various math topics and difficulty levels. Below are the key milestones and features planned for future development:
+The goal is to evolve Pierre into a fully-fledged math challenge engine with programmatic question generation across various math topics and difficulty levels. Below are the key milestones and features planned for future development:
 
 ### Phase 1: Core Engine Enhancements
 - **Dynamic Question Generation:**  
